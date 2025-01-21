@@ -13,7 +13,7 @@ class Account:
     def __str__(self):
         return f'name: {self.owner} \nbalance: {self.balance}'
 
-me = Account('Daryn', 5000)
+me = Account('Rasul', 5000)
 print(me)
 
 me.deposit(400)
