@@ -9,6 +9,14 @@ def spy_game(nums):
             #return False
             break
     return False
+# def spy_game(nums):
+#     zero_count = 0  #
+#     for num in nums:
+#         if num == 0:
+#             zero_count += 1
+#         elif num == 7 and zero_count >= 2:
+#             return True
+#     return False
 
 spy_game([1,2,4,0,0,7,5]) #True
 spy_game([1,0,2,4,0,5,7]) #True
