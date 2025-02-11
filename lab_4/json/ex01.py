@@ -1,9 +1,16 @@
 import json
-heading =  'Interface Status\n{}\n{:50} {:21} {:8} {:4}\n{} {}  {}  {}'.format('='*80, 'DM' ,'Description', 'Speed', 'MTU', '-'*50, '-'*20, '-'*6, '-'*6)
 
-with open('sample-data.json') as f:
-    main_data = json.load(f)
-    print(heading)
-    for i in main_data["imdata"]:
-        mn = i["l1PhysIf"]["attributes"]
-        print('{:50} {:20} {:8}  {}'.format(mn["dn"], mn["descr"], mn["speed"], mn["mtu"]))
+# temp_file = json.dumps(sample-data.json)
+with open("sample-data.json", "r") as file:
+    data = json.load(file)
+
+print("Interface status")
+print("=" * 80)
+print("DN", " " * 40, "Description ", "speed", " " * 10, "MTU")
+print("-" * 41, "-" * 12, "-" * 13, "\t", "-" * 4)
+for imdata in data["imdata"]:
+    for i in imdata:
+        for j in imdata[i]: # every imdata[i] is dictionary
+            print(imdata[i][j]["dn"],"\t", "\t\t\t"  , imdata[i][j]["speed"] ,"\t\t" , imdata[i][j]["mtu"])
+
+# dictionary -> list -> dictionary -> dictionary
