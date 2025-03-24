@@ -12,7 +12,6 @@ patterns_tests = [
     (r'([A-Z])', ["InsertSpacesBetweenWords"]),
     (r'([A-Z])', ["CamelCaseToSnakeCase"])
 ]
-
 for pattern, test_strings in patterns_tests:
     print(f"Pattern: {pattern}")
     for s in test_strings:

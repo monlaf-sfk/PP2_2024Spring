@@ -12,5 +12,5 @@ for imdata in data["imdata"]:
     for i in imdata:
         for j in imdata[i]: # every imdata[i] is dictionary
             print(imdata[i][j]["dn"],"\t", "\t\t\t"  , imdata[i][j]["speed"] ,"\t\t" , imdata[i][j]["mtu"])
-
+#nocheating
 # dictionary -> list -> dictionary -> dictionary

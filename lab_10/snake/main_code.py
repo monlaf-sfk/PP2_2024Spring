@@ -1,7 +1,11 @@
+import os
+
 import pygame, json, tools
 from game_objects import Player, Food, Wall
 
-with open('snake\\color.json') as f: # take colors from json file
+base_dir = os.path.dirname(os.path.abspath(__file__))  # Get script's directory
+file_path = os.path.join(base_dir, 'color.json')
+with open(file_path) as f:
     color = json.loads(f.read())
 
 user_name = input('Enter user name: ')
@@ -20,7 +24,7 @@ pygame.init()
 
 h = w = 400
 win = pygame.display.set_mode((w, h))
-pygame.display.set_caption('Snake_a.daryn')
+pygame.display.set_caption('Snake')
 
 def add_transparent_text(main_surface, text, size, x, y):
     font = pygame.font.SysFont('comicsansms', size)
@@ -55,10 +59,12 @@ add_speed_effect = timer_adding_speed = 0 # additional +speed effect for a short
 if len(user_info) != 0:
     LEVEL = user_info[1]
     BALANCE = user_info[2]
-    match user_info[1]:
-        case 2: speed += 1
-        case 3: speed += 2
-        case 4: speed += 10
+    if user_info[1] == 2:
+        speed += 1
+    elif user_info[1] == 3:
+        speed += 2
+    elif user_info[1] == 4:
+        speed += 10
     player.points = tools.text_to_points(user_info[3]) # "20:60;20:80;20:100;20:120;20:140;20:160"
     wall = Wall(level = LEVEL)
 def null_effect_additional_speed():
