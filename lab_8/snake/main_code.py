@@ -19,7 +19,7 @@ def add_transparent_text(main_surface, text, size, x, y):
     surface = pygame.Surface((w,h))
     surface.fill(color['bg_color'])
     surface.blit(text, (0,0))
-    surface.set_alpha(150)
+    surface.set_alpha(160)
     main_surface.blit(surface, (x, y))
 def fill_background(surface, level, balance, n_to_next_lvl):
     surface.fill(color['bg_color'])

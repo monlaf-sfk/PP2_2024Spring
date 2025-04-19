@@ -10,7 +10,7 @@ win = pygame.display.set_mode((screen_w, screen_h))
 pygame.display.set_caption('Musics')
 
 theme = 1 # give a theme, to change PRESS 'ESC' - 'ESCAPE'
-rounded_icons = False # to change PRESS LETTER 'r'
+rounded_icons = True # to change PRESS LETTER 'r'
 
 
 # needed colors

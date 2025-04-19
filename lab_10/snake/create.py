@@ -1,24 +1,49 @@
 import psycopg2
+import config
 
-connection = psycopg2.connect(host='127.0.0.1', database='suppliers', user='postgres', password='1234', port='5432')
+def setup_database(force_recreate=False):
+    """
+    Connects to the PostgreSQL database and creates the score table
+    if it doesn't exist.
+    """
+    connection = None
+    try:
+        connection = psycopg2.connect(
+            host=config.DB_HOST,
+            database=config.DB_NAME,
+            user=config.DB_USER,
+            password=config.DB_PASSWORD,
+            port=config.DB_PORT
+        )
+        cursor = connection.cursor()
 
-create_table = '''
-    CREATE TABLE IF NOT EXISTS snake(
-        user_name  TEXT PRIMARY KEY NOT NULL,
-        lvl INT,
-        score INT, 
-        points_snake TEXT
-)
-'''
+        if force_recreate:
+            print(f"WARNING: Dropping table {config.DB_TABLE_NAME} if it exists...")
+            cursor.execute(f'DROP TABLE IF EXISTS {config.DB_TABLE_NAME}')
+            print(f"Table {config.DB_TABLE_NAME} dropped (if existed).")
 
-cursor = connection.cursor()
+        create_table_query = f'''
+            CREATE TABLE IF NOT EXISTS {config.DB_TABLE_NAME} (
+                user_name TEXT PRIMARY KEY NOT NULL,
+                level INT,
+                score INT,
+                snake_body_coords TEXT
+            )
+        '''
 
-try:
-    cursor.execute('DROP TABLE IF EXISTS snake')
-    cursor.execute(create_table)
-    connection.commit()
-    print('created!')
-except Exception as error:
-    print('ERROR:', error)
-finally:
-    connection.close()
+        cursor.execute(create_table_query)
+        connection.commit()
+        print(f"Table '{config.DB_TABLE_NAME}' checked/created successfully.")
+
+    except psycopg2.Error as error:
+        print('Database Error:', error)
+        if connection:
+            connection.rollback()
+    finally:
+        if connection:
+            connection.close()
+            print("Database connection closed.")
+
+if __name__ == "__main__":
+    print("Setting up the database...")
+    setup_database()
